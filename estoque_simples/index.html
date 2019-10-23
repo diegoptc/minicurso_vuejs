@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Estoque Simples</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="produto in produtos">
+                <input type="number" v-model="produto.quantidade" min=0>
+                 {{ produto.descricao }}
+                <span v-if="produto.quantidade == 0">
+                    - Não tem no estoque
+                </span>
+                <button @click="produto.quantidade += 1">
+                    Add
+                </button>
+            </li>
+        </ul>
+        <h2>Total no Inventário: {{ totalProdutos }}</h2>
+    </div>
+</body> 
+</html>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            produtos: [
+                {descricao: "Diego", quantidade: 0}
+            ]
+        },
+        computed: {
+            totalProdutos() {
+                return this.produtos.reduce((soma, produto) => {
+                    return soma + produto.quantidade
+                }, 0)
+            }
+        }
+    })
+</script>
